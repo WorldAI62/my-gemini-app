@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Gemini Test</title>
+</head>
+<body>
+  <h1>Gemini API Test</h1>
+  <button onclick="callGemini()">Call Gemini</button>
+
+  <script>
+    async function callGemini() {
+      const response = await fetch('/.netlify/functions/gemini', {
+        method: 'POST',
+        body: JSON.stringify({ prompt: "Hello from frontend" })
+      });
+      const data = await response.json();
+      console.log(data);
+      alert(JSON.stringify(data));
+    }
+  </script>
+</body>
+</html>
