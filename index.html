@@ -8,7 +8,7 @@
   <h1>Geminiに質問する</h1>
   <input type="text" id="prompt" placeholder="質問を入力" />
   <button onclick="askGemini()">送信</button>
-  <pre id="response"></pre>
+  <pre id="response"> </pre>
 
   <script>
     async function askGemini() {
@@ -17,8 +17,12 @@
 
       const res = await fetch("/.netlify/functions/gemini", {
         method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: JSON.stringify({ prompt }),
       });
+
       const data = await res.json();
       responseEl.textContent = data.result;
     }
