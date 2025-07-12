@@ -16,7 +16,7 @@
   <div id="response"></div>
 
   <script>
-    const apiKey = "AIzaSyA6mTy2kqtjQgHmGozsQ6XS3XcIIZrA42o";
+    const apiKey = "AIzaSyA6mTy2kqtjQgHmGozsQ6XS3XcIIZrA42o"; // ここはあなたのキー
 
     async function askGemini() {
       const userInput = document.getElementById("userInput").value;
@@ -28,14 +28,19 @@
       };
 
       try {
-        const res = await fetch("https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body)
-        });
+        const res = await fetch(
+          "https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=" + apiKey,
+          {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body)
+          }
+        );
 
         const data = await res.json();
-        if (data.candidates && data.candidates.length > 0) {
+        console.log(data); // デバッグ用
+
+        if (data.candidates && data.candidates[0]?.content?.parts?.[0]?.text) {
           responseDiv.textContent = data.candidates[0].content.parts[0].text;
         } else {
           responseDiv.textContent = "返答がありませんでした。";
