@@ -1,2 +1,4 @@
 [functions]
   directory = "netlify/関数"
+[build]
+  functions = "netlify/functions"
