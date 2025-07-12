@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-const apiKey = "AIzaSyA6mTy2kqtjQgHmGozsQ6XS3XcIIZrA42o";
+const apiKey = "AIzaSyA6mTy2kqtjQgHmGozsQ6XS3XcIIZrA42o";  // ←英数字のみ、Bearer を含めない
 
 exports.handler = async function (event, context) {
   const { prompt } = JSON.parse(event.body);
@@ -11,7 +11,7 @@ exports.handler = async function (event, context) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
+        Authorization: `Bearer ${apiKey}`,  // ←ここで「Bearer 」を自動で付ける
       },
       body: JSON.stringify({
         contents: [
