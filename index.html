@@ -2,29 +2,36 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8" />
-  <title>Gemini チャット</title>
+  <title>Geminiに質問する</title>
 </head>
-<body> 
+<body>
   <h1>Geminiに質問する</h1>
-  <input type="text" id="prompt" placeholder="質問を入力" />
+  <input type="text" id="question" placeholder="質問を入力" />
   <button onclick="askGemini()">送信</button>
-  <pre id="response"> </pre>
+  <p id="response"></p>
 
   <script>
     async function askGemini() {
-      const prompt = document.getElementById("prompt").value;
-      const responseEl = document.getElementById("response");
+      const question = document.getElementById("question").value;
 
-      const res = await fetch("/.netlify/functions/gemini", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ prompt }),
-      });
+      const responseBox = document.getElementById("response");
+      responseBox.textContent = "送信中...";
 
-      const data = await res.json();
-      responseEl.textContent = data.result;
+      try {
+        const res = await fetch("/.netlify/functions/gemini", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ question: question })
+        });
+
+        const data = await res.json();
+        responseBox.textContent = data.result || "回答がありません。";
+      } catch (error) {
+        responseBox.textContent = "エラーが発生しました。";
+        console.error(error);
+      }
     }
   </script>
 </body>
