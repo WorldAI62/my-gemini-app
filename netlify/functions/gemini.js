@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-const apiKey = "AIzaSyA6mTy2kqtjQgHmGozsQ6XS3XcIIZrA42o"; // 本物のキーを使う
+const apiKey = "AIzaSyA6mTy2kqtjQgHmGozsQ6XS3XcIIlZrA42o"; // 本物のキーを使う
 
 exports.handler = async function (event, context) {
   const { prompt } = JSON.parse(event.body);
@@ -24,11 +24,11 @@ exports.handler = async function (event, context) {
   );
 
   const data = await response.json();
-  const text =
-    data.candidates?.[0]?.content?.parts?.[0]?.text || "No response found.";
+
+  const text = data?.candidates?.[0]?.content?.parts?.[0]?.text || "回答が取得できませんでした。";
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ reply: text }),
+    body: JSON.stringify({ text }),
   };
 };
