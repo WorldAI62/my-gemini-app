@@ -16,6 +16,7 @@ exports.handler = async function (event, context) {
       body: JSON.stringify({
         contents: [
           {
+            role: "user",
             parts: [{ text: prompt }],
           },
         ],
@@ -23,16 +24,12 @@ exports.handler = async function (event, context) {
     }
   );
 
-  const result = await response.json();
-
-  // 👇この1行だけ追加（ログ表示用）
-  console.log("Gemini API response:", result);
-
+  const data = await response.json();
   const text =
-    result.candidates?.[0]?.content?.parts?.[0]?.text || "回答がありません。";
+    data.candidates?.[0]?.content?.parts?.[0]?.text || "返答がありませんでした。";
 
   return {
     statusCode: 200,
-    body: JSON.stringify({ result: text }),
+    body: JSON.stringify({ text }),
   };
 };
