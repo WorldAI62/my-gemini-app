@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-const apiKey = "あなたのAPIキー";
+const apiKey = "AIzaSyA6mTy2kqtjQgHmGozsQ6XS3XcIIZrA42o";
 
 exports.handler = async function (event, context) {
   const { prompt } = JSON.parse(event.body);
